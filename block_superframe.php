@@ -47,19 +47,23 @@ to register your plugin in the plugins database
  *
  */
 
-class block_superframe extends block_base {
+class block_superframe extends block_base
+{
     /**
      * Initialize our block with a language string.
      */
-    public function init() {
+    public function init()
+    {
         $this->title = get_string('pluginname', 'block_superframe');
     }
 
     /**
      * Add some text content to our block.
      */
-    public function get_content() {
-        global $USER;
+    public function get_content()
+    {
+        global $USER, $CFG;
+
 
         // Do we have any content?
         if ($this->content !== null) {
@@ -74,8 +78,13 @@ class block_superframe extends block_base {
         // OK let's add some content.
         $this->content = new stdClass();
         $this->content->footer = '';
-        $this->content->text = get_string('welcomeuser', 'block_superframe',
-                $USER);
+        $this->content->text = get_string(
+            'welcomeuser',
+            'block_superframe',
+            $USER
+        );
+        $this->content->text .= '<br><a href="' . $CFG->wwwroot . '/blocks/superframe/view.php">' .
+            get_string('viewlink', 'block_superframe') . '</a>';
 
         return $this->content;
     }
@@ -84,19 +93,22 @@ class block_superframe extends block_base {
      * This is a list of places where the block may or
      * may not be added.
      */
-    public function applicable_formats() {
-        return array('all' => false,
-                     'site' => true,
-                     'site-index' => true,
-                     'course-view' => true,
-                     'my' => true);
+    public function applicable_formats()
+    {
+        return array(
+            'all' => false,
+            'site' => true,
+            'site-index' => true,
+            'course-view' => true,
+            'my' => true
+        );
     }
 
     /**
      * Allow multiple instances of the block.
      */
-    public function instance_allow_multiple() {
+    public function instance_allow_multiple()
+    {
         return true;
     }
-
 }
