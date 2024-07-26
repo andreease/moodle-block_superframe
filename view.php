@@ -23,14 +23,29 @@
  */
 require('../../config.php');
 $blockid = required_param('blockid', PARAM_INT);
-$def_config = get_config('block_superframe');
-$PAGE->set_course($COURSE);
-$PAGE->set_url('/blocks/superframe/view.php');
+$courseid = required_param('courseid', PARAM_INT);
+$defconfig = get_config('block_superframe');
+
+if ($courseid == $SITE->id) {
+    $context = context_system::instance();
+    $PAGE->set_context($context);
+} else {
+    $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+    // This means that we can prevent access with 'seeviewpage' capability on a course override basis.
+    $PAGE->set_course($course);
+    $context = $PAGE->context;
+}
+
+$PAGE->set_url('/blocks/superframe/view.php', array('blockid' => $blockid, 'courseid' => $courseid));
 $PAGE->set_heading($SITE->fullname);
-$PAGE->set_pagelayout($def_config->pagelayout);
+$PAGE->set_pagelayout($defconfig->pagelayout);
 $PAGE->set_title(get_string('pluginname', 'block_superframe'));
 $PAGE->navbar->add(get_string('pluginname', 'block_superframe'));
 require_login();
+
+// Check the users permissions to see the view page.
+require_capability('block/superframe:seeviewpage', $context);
+
 
 /* Get the instance configuration data from the database.
    It's stored as a base 64 encoded serialized string. */
@@ -42,17 +57,18 @@ if ($configdata) {
 } else {
     // No instance data, use admin settings.
     // However, that only specifies height and width, not size.
-    $config = $def_config;
+    $config = $defconfig;
     $config->size = 'custom';
 }
 
-// / URL - comes either from instance or admin.
+// URL - comes either from instance or admin.
 $url = $config->url;
+
 // Let's set up the iframe attributes.
 switch ($config->size) {
     case 'custom':
-        $width = $def_config->width;
-        $height = $def_config->height;
+        $width = $defconfig->width;
+        $height = $defconfig->height;
         break;
     case 'small':
         $width = 360;
@@ -68,22 +84,5 @@ switch ($config->size) {
         break;
 }
 
-
-// Start output to browser.
-echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('pluginname', 'block_superframe'), 5);
-// Dummy content.
-echo '<br>' . fullname($USER) . '<br>';
-
-
-// Build and display an iframe.
-$attributes = [
-    'src' => $url,
-    'width' => $width,
-    'height' => $height
-];
-echo html_writer::start_tag('iframe', $attributes);
-echo html_writer::end_tag('iframe');
-
-// Send footer out to browser.
-echo $OUTPUT->footer();
+$renderer = $PAGE->get_renderer('block_superframe');
+$renderer->display_view_page($url, $width, $height);

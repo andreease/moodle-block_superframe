@@ -31,10 +31,8 @@
 
 // General.
 $string['pluginname'] = 'Super frame';
-$string['welcomeuser'] = 'Welcome {$a->firstname} {$a->lastname}!';
-
+$string['welcomeuser'] = 'Welcome {$a->firstname} {$a->lastname}';
 $string['viewlink'] = 'View page';
-
 // Admin settings file.
 $string['headerconfig'] = 'Super frame settings';
 $string['headerconfigdesc'] = 'Settings for Super frame';
@@ -57,3 +55,5 @@ $string['large'] = 'Large';
 // Capability strings.
 $string['superframe:addinstance'] = 'Add a new Super frame block';
 $string['superframe:myaddinstance'] = 'Add a new Super frame block to my moodle';
+$string['superframe:seeviewpage'] = 'Access the view page';
+$string['superframe:seeviewpagelink'] = 'See this link';
