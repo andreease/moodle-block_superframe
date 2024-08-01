@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * superframe view page
  *
@@ -21,6 +22,7 @@
  * Modified for use in MoodleBites for Developers Level 1 by Richard Jones & Justin Hunt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 require('../../config.php');
 $blockid = required_param('blockid', PARAM_INT);
 $courseid = required_param('courseid', PARAM_INT);
@@ -45,7 +47,6 @@ require_login();
 
 // Check the users permissions to see the view page.
 require_capability('block/superframe:seeviewpage', $context);
-
 
 /* Get the instance configuration data from the database.
    It's stored as a base 64 encoded serialized string. */
