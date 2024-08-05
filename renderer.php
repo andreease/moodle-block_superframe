@@ -24,7 +24,7 @@
 class block_superframe_renderer extends plugin_renderer_base
 {
 
-    public function display_view_page($url, $width, $height)
+    public function display_view_page($url, $width, $height, $courseid)
     {
         global $USER;
 
@@ -39,16 +39,18 @@ class block_superframe_renderer extends plugin_renderer_base
         // Add the user data.
         $data->fullname = fullname($USER);
 
+        $data->returnlink = new moodle_url('/course/view.php', ['id' => $courseid]);
+
         // Start output to browser.
         echo $this->output->header();
 
         // Render the data in a Mustache template.
         echo $this->render_from_template('block_superframe/frame', $data);
 
-
         // Finish the page.
         echo $this->output->footer();
     }
+
     public function fetch_block_content($blockid, $courseid)
     {
         global $USER;
@@ -57,6 +59,7 @@ class block_superframe_renderer extends plugin_renderer_base
 
         $data->welcome = get_string('welcomeuser', 'block_superframe', $USER);
         $context = \context_block::instance($blockid);
+
         // Check the capability.
         if (has_capability('block/superframe:seeviewpagelink', $context)) {
             $data->url = new moodle_url('/blocks/superframe/view.php', ['blockid' => $blockid, 'courseid' => $courseid]);
@@ -66,6 +69,10 @@ class block_superframe_renderer extends plugin_renderer_base
         // Add a link to the popup page.
         $data->popurl = new moodle_url('/blocks/superframe/block_data.php');
         $data->poptext = get_string('poptext', 'block_superframe');
+
+        // Add a link to the table manager page.
+        $data->tableurl = new moodle_url('/blocks/superframe/tablemanager.php');
+        $data->tabletext = get_string('tabletext', 'block_superframe');
 
         // List of course students.
         $data->students = array();
@@ -77,6 +84,7 @@ class block_superframe_renderer extends plugin_renderer_base
         // Render the data in a Mustache template.
         return $this->render_from_template('block_superframe/block_content', $data);
     }
+
     private static function get_course_users($courseid)
     {
         global $DB;

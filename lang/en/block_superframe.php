@@ -32,6 +32,7 @@
 // General.
 $string['pluginname'] = 'Super frame';
 $string['welcomeuser'] = 'Welcome {$a->firstname} {$a->lastname}';
+
 $string['viewlink'] = 'View page';
 
 // Admin settings file.
@@ -53,6 +54,7 @@ $string['small'] = 'Small';
 $string['medium'] = 'Medium';
 $string['large'] = 'Large';
 
+
 // Block data table.  Week 5 task 1.
 $string['blockid'] = 'Block id';
 $string['blockname'] = 'Block name';
@@ -60,6 +62,11 @@ $string['course'] = 'Block course';
 $string['catname'] = 'Course category';
 $string['tablecaption'] = 'Block data';
 $string['poptext'] = 'Block summary';
+
+// Table manager table. Week 5 task 2
+$string['tablemanager'] = 'Table Manager: ';
+$string['tabletext'] = 'Table editing';
+$string['norecordsfound'] = 'No records found';
 
 // Capability strings.
 $string['superframe:addinstance'] = 'Add a new Super frame block';
