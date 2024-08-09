@@ -54,6 +54,8 @@ $string['small'] = 'Small';
 $string['medium'] = 'Medium';
 $string['large'] = 'Large';
 
+// Week 4 optional task 1.
+$string['returncourse'] = 'Return to course';
 
 // Block data table.  Week 5 task 1.
 $string['blockid'] = 'Block id';
@@ -63,7 +65,7 @@ $string['catname'] = 'Course category';
 $string['tablecaption'] = 'Block data';
 $string['poptext'] = 'Block summary';
 
-// Table manager table. Week 5 task 2
+// Table manager.  Week 5 task 2.
 $string['tablemanager'] = 'Table Manager: ';
 $string['tabletext'] = 'Table editing';
 $string['norecordsfound'] = 'No records found';

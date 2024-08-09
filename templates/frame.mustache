@@ -44,9 +44,11 @@
     }
 }}
 
-<div class="jumbotron">
-    <h2 class="text-center">Welcome {{fullname}}</h2>
-    <h5 class="text-center">{{heading}}</h5>
+<div class="jumbotron text-center">
+    <h2>Welcome {{fullname}}</h2>
+    <h5>{{heading}}</h5>
+    {{> block_superframe/links}}
      <iframe style="display:block; margin:0 auto;" src="{{url}}" height="{{height}}" width="{{width}}"></iframe>
+     <a href="{{{returnlink}}}" class="btn btn-lg btn-outline-info mt-5 font-weight-bold">{{#str}}returncourse, block_superframe{{/str}}</a>
 </div>
 
